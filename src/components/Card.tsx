@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { ReactNode, isValidElement, cloneElement } from "react";
 
 type CardProps = {
@@ -8,6 +9,9 @@ export function Card({ children }: CardProps) {
 
   return cloneElement(children, {
     ...children.props,
-    className: "shadow rounded-lg overflow-hidden",
+    className: clsx(
+      "shadow-md rounded overflow-hidden",
+      children.props.className
+    ),
   });
 }

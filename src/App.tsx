@@ -5,18 +5,31 @@ function App() {
     <main>
       <Header />
 
-      <Search />
+      <div className="p-4 flex flex-col gap-10">
+        <Card>
+          <Search />
+        </Card>
 
-      <div>
-        {/* <Select /> */}
+        <div>
+          <Select
+            placeholder="Filter by Region"
+            options={[
+              { label: "Africa", value: "Africa" },
+              { label: "America", value: "America" },
+              { label: "Asia", value: "Asia" },
+              { label: "Europe", value: "Europe" },
+              { label: "Oceania", value: "Oceania" },
+            ]}
+          />
 
-        <ul>
-          {/* <li>
+          <ul>
+            {/* <li>
             <Card>
               <Country />
             </Card>
           </li> */}
-        </ul>
+          </ul>
+        </div>
       </div>
     </main>
   );
