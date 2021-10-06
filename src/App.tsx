@@ -1,7 +1,25 @@
-import React from "react";
+import { Header, Search, Select, Country, Card } from "./components";
 
 function App() {
-  return <></>;
+  return (
+    <main>
+      <Header />
+
+      <Search />
+
+      <div>
+        {/* <Select /> */}
+
+        <ul>
+          {/* <li>
+            <Card>
+              <Country />
+            </Card>
+          </li> */}
+        </ul>
+      </div>
+    </main>
+  );
 }
 
 export default App;
