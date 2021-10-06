@@ -8,9 +8,7 @@ interface Country {
   capital: string;
 }
 
-function format(value: number) {
-  return new Intl.NumberFormat().format(value);
-}
+const format = (value: number) => new Intl.NumberFormat().format(value);
 
 type CountryProps = Country & {
   className?: string;

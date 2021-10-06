@@ -5,6 +5,17 @@ import {
   useEffect,
   useRef,
 } from "react";
+import { v4 as uuid } from "uuid";
+
+const mapping = new Map<string, [HTMLElement, Function | undefined]>();
+
+window.addEventListener("click", (event: MouseEvent) => {
+  mapping.forEach(([element, func]) => {
+    if (element.contains(event.target as HTMLElement)) return;
+
+    func?.();
+  });
+});
 
 type ClickAwayProps = {
   children?: ReactNode;
@@ -19,17 +30,11 @@ export function ClickAway({ children, onClickAway }: ClickAwayProps) {
   useEffect(() => {
     if (!ref.current || !onClickAway) return;
 
-    const element = ref.current;
+    const id = uuid();
 
-    function onClick(event: MouseEvent) {
-      if (element.contains(event.target as Element)) return;
+    mapping.set(id, [ref.current, onClickAway]);
 
-      onClickAway?.();
-    }
-
-    window.addEventListener("click", onClick);
-
-    return () => window.removeEventListener("click", onClick);
+    return () => void mapping.delete(id);
   }, []);
 
   return cloneElement(children, {

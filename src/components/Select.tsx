@@ -64,7 +64,7 @@ function FakeSelect({ label, value, options, onSelect }: FakeSelectProps) {
 
   return (
     <ClickAway onClickAway={() => setExpand(false)}>
-      <div className="w-1/2 text-xs flex flex-col gap-2">
+      <div className="w-1/2 text-xs flex flex-col gap-2 relative">
         <Card>
           <FakeLabel
             label={label}
@@ -75,7 +75,12 @@ function FakeSelect({ label, value, options, onSelect }: FakeSelectProps) {
 
         {isExpand && (
           <Card>
-            <ul className="flex flex-col">
+            <ul
+              className={clsx(
+                "flex flex-col w-full bg-white",
+                "absolute top-full mt-1 z-10"
+              )}
+            >
               {options.map(({ label, value }) => (
                 <li key={value}>
                   <FakeOption

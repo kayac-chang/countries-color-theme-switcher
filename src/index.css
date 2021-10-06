@@ -6,4 +6,5 @@
 
 html {
   font-family: "Nunito Sans", sans-serif;
+  @apply bg-gray-light;
 }
