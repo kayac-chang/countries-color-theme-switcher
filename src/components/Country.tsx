@@ -1,16 +1,9 @@
 import clsx from "clsx";
-
-interface Country {
-  flag: string;
-  name: string;
-  population: number;
-  region: string;
-  capital: string;
-}
+import { Country as TCountry } from "../model";
 
 const format = (value: number) => new Intl.NumberFormat().format(value);
 
-type CountryProps = Country & {
+type CountryProps = TCountry & {
   className?: string;
 };
 export function Country({

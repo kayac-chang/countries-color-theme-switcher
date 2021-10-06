@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import { Header, Search, Select, Country, Card } from "./components";
+import API from "./api";
+import { Country as TCountry } from "./model";
 
 function App() {
+  const [countries, setCountries] = useState<TCountry[]>([]);
+
+  useEffect(() => {
+    API.Country.get().then(setCountries);
+  }, [setCountries]);
+
   return (
     <main>
       <Header />
@@ -22,18 +31,14 @@ function App() {
             ]}
           />
 
-          <ul className="p-8">
-            <li>
-              <Card>
-                <Country
-                  flag="https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
-                  name="Taiwan"
-                  population={23503349}
-                  region="Asia"
-                  capital="Taipei"
-                />
-              </Card>
-            </li>
+          <ul className="p-10 flex flex-col gap-10">
+            {countries.map((country) => (
+              <li key={country.name}>
+                <Card>
+                  <Country {...country} />
+                </Card>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
