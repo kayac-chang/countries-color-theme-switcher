@@ -1,38 +1,48 @@
-type CountryProps = {
-  className?: string,
+import clsx from "clsx";
+
+interface Country {
+  flag: string;
+  name: string;
+  population: number;
+  region: string;
+  capital: string;
+}
+
+function format(value: number) {
+  return new Intl.NumberFormat().format(value);
+}
+
+type CountryProps = Country & {
+  className?: string;
 };
-export function Country({ className }: CountryProps) {
+export function Country({
+  className,
+  name,
+  flag,
+  population,
+  region,
+  capital,
+}: CountryProps) {
   return (
-    <div className={className}>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
-        alt=""
-      />
+    <div className={clsx(className, "min-h-[21rem]")}>
+      <img src={flag} alt={`${name}'s flag`} />
 
       <div className="p-6 space-y-4">
-        <h2 className="font-bold text-lg">Germany</h2>
+        <h2 className="font-bold text-lg">{name}</h2>
 
         <ul className="text-sm space-y-1">
-          <li>
-            <div className="space-x-1">
-              <strong className="font-semibold">Population:</strong>
-              <span>81,770,900</span>
-            </div>
-          </li>
-
-          <li>
-            <div className="space-x-1">
-              <strong className="font-semibold">Region:</strong>
-              <span>Europe</span>
-            </div>
-          </li>
-
-          <li>
-            <div className="space-x-1">
-              <strong className="font-semibold">Capital:</strong>
-              <span>Berlin</span>
-            </div>
-          </li>
+          {Object.entries({
+            Population: format(population),
+            Region: region,
+            Capital: capital,
+          }).map(([title, value]) => (
+            <li key={title}>
+              <div className="space-x-1">
+                <strong className="font-semibold">{title}:</strong>
+                <span className="font-light">{value}</span>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

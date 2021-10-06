@@ -22,12 +22,18 @@ function App() {
             ]}
           />
 
-          <ul>
-            {/* <li>
-            <Card>
-              <Country />
-            </Card>
-          </li> */}
+          <ul className="p-8">
+            <li>
+              <Card>
+                <Country
+                  flag="https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
+                  name="Taiwan"
+                  population={23503349}
+                  region="Asia"
+                  capital="Taipei"
+                />
+              </Card>
+            </li>
           </ul>
         </div>
       </div>
