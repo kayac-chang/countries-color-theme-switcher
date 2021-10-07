@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, Select, Country, Card } from "@/components";
-import API from "@/api";
-import { Country as TCountry } from "@/model";
+import useStore from "@/data";
 
 export function Home() {
-  const [countries, setCountries] = useState<TCountry[]>([]);
-
-  useEffect(() => {
-    API.Country.get().then(setCountries);
-  }, [setCountries]);
+  const countries = useStore((state) => state.countries);
+  const getAllCountries = useStore((state) => state.getAllCountries);
+  useEffect(() => void getAllCountries(), [getAllCountries]);
 
   return (
     <>

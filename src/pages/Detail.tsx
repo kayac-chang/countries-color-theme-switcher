@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
 import { Back, List, Flag, Tag } from "@/components";
-import { Country } from "@/model";
-import API from "@/api";
-import { Format, head } from "@/utils";
+import { Format } from "@/utils";
 import { join } from "ramda";
 import { useParams } from "react-router";
+import useStore from "@/data";
+import { useEffect } from "react";
 
 const format = join(", ");
 
 export function Detail() {
   const { country: name } = useParams();
-  const [country, setCountry] = useState<Country>();
+
+  const getCountryByName = useStore((state) => state.getCountryByName);
+
+  const country = useStore((state) =>
+    state.countries.find((country) => country.name === name)
+  );
 
   useEffect(() => {
-    API.Country.get(name).then(head).then(setCountry);
-  }, [name]);
+    if (!name || country) return;
+
+    getCountryByName(name);
+  }, [country, name]);
 
   return (
     <div className="p-4">
