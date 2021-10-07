@@ -102,7 +102,7 @@ type SelectProps = {
   options: Option[];
 };
 export function Select({ placeholder, options }: SelectProps) {
-  const [current, setCurrent] = useState(-1);
+  const [current, setCurrent] = useState(placeholder ? -1 : 0);
 
   const onSelect = useCallback(
     ({ value }: Option) =>
@@ -126,7 +126,7 @@ export function Select({ placeholder, options }: SelectProps) {
         value={options[current]?.value}
         onChange={identity}
       >
-        <option value="-1">{placeholder}</option>
+        {placeholder && <option value="-1">{placeholder}</option>}
 
         {options.map(({ label, value }) => (
           <option key={value} value={value}>

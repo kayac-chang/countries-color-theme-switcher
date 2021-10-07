@@ -38,8 +38,10 @@ export function Home() {
 
       <div>
         <Select
-          placeholder="Filter by Region"
-          options={Regions.map((label) => ({ label, value: label }))}
+          options={[
+            { label: "Filter by Region", value: "Filter by Region" },
+            ...Regions.map((label) => ({ label, value: label })),
+          ]}
         />
 
         <VirtualList
