@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useState } from "react";
-import { Card, Icon, ClickAway } from ".";
+import { Card, Icon, ClickAway } from "@/components";
 import { not, identity } from "ramda";
 
 interface Option {
@@ -28,7 +28,7 @@ function FakeLabel({ className, label, value, onClick }: FakeLabelProps) {
       <span>{value || label}</span>
 
       <span className="w-3">
-        <Icon.ArrowDown />
+        <Icon.ChevronDown />
       </span>
     </button>
   );

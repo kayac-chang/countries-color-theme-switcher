@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Icon } from ".";
+import { Icon } from "@/components";
 
 type SearchProps = {
   className?: string;

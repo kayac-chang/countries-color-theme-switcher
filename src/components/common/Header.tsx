@@ -1,4 +1,4 @@
-import Icon from "./Icon";
+import { Icon } from ".";
 import clsx from "clsx";
 
 function ThemeToggle() {

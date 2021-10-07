@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { Country as TCountry } from "../model";
-
-const format = (value: number) => new Intl.NumberFormat().format(value);
+import { Country as TCountry } from "@/model";
+import { Format } from "@/utils";
+import { Data } from "@/components";
 
 type CountryProps = TCountry & {
   className?: string;
@@ -23,15 +23,12 @@ export function Country({
 
         <ul className="text-sm space-y-1">
           {Object.entries({
-            Population: format(population),
+            Population: Format.number(population),
             Region: region,
-            Capital: capital,
+            Capital: capital.join(),
           }).map(([title, value]) => (
             <li key={title}>
-              <div className="space-x-1">
-                <strong className="font-semibold">{title}:</strong>
-                <span className="font-light">{value}</span>
-              </div>
+              <Data title={title} value={value} />
             </li>
           ))}
         </ul>
