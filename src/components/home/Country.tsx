@@ -16,7 +16,9 @@ export function Country({
 }: CountryProps) {
   return (
     <div className={clsx(className, "min-h-[21rem]")}>
-      <img src={flag} alt={`${name}'s flag`} />
+      <div className="h-40 flex justify-center">
+        <img src={flag} alt={`${name}'s flag`} />
+      </div>
 
       <div className="p-6 space-y-4">
         <h2 className="font-bold text-lg">{name}</h2>
@@ -25,7 +27,7 @@ export function Country({
           {Object.entries({
             Population: Format.number(population),
             Region: region,
-            Capital: capital.join(),
+            Capital: capital.join(", "),
           }).map(([title, value]) => (
             <li key={title}>
               <Data title={title} value={value} />

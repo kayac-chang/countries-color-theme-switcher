@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Prompt } from "react-router-dom";
 import { Header } from "@/components";
 import { Home, Detail } from "@/pages";
 
@@ -11,7 +11,9 @@ function App() {
         <div className="p-4 flex flex-col gap-10">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="detail">
+              <Route path=":country" element={<Detail />} />
+            </Route>
           </Routes>
         </div>
       </main>

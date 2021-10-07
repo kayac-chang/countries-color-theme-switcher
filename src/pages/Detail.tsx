@@ -4,15 +4,17 @@ import { Country } from "@/model";
 import API from "@/api";
 import { Format, head } from "@/utils";
 import { join } from "ramda";
+import { useParams } from "react-router";
 
 const format = join(", ");
 
 export function Detail() {
+  const { country: name } = useParams();
   const [country, setCountry] = useState<Country>();
 
   useEffect(() => {
-    API.Country.get("Belgium").then(head).then(setCountry);
-  }, []);
+    API.Country.get(name).then(head).then(setCountry);
+  }, [name]);
 
   return (
     <div className="p-4">

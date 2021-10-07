@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, Select, Country, Card } from "@/components";
 import API from "@/api";
 import { Country as TCountry } from "@/model";
@@ -31,9 +32,11 @@ export function Home() {
         <ul className="p-10 flex flex-col gap-10">
           {countries.map((country) => (
             <li key={country.name}>
-              <Card>
-                <Country {...country} />
-              </Card>
+              <Link to={`/detail/${country.name}`}>
+                <Card>
+                  <Country {...country} />
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>
