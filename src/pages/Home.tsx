@@ -63,7 +63,7 @@ export function Home() {
         >
           {countries.map((country) => (
             <li key={country.name}>
-              <Link to={`/detail/${country.name}`}>
+              <Link to={`/detail/${encodeURI(country.name)}`}>
                 <Card>
                   <Country {...country} />
                 </Card>
@@ -85,7 +85,7 @@ export function Home() {
           gap={40}
         >
           {(country) => (
-            <Link to={`/detail/${country.name}`}>
+            <Link to={`/detail/${encodeURI(country.name)}`}>
               <Card>
                 <Country {...country} />
               </Card>

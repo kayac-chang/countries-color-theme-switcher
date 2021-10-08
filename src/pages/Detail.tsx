@@ -16,9 +16,19 @@ export function Detail() {
     (state) => state.getCountryBySubRegion
   );
 
+  // const country = useStore(
+  //   useCallback(
+  //     (state) => state.countries.find((country) => country.name === name),
+  //     [name]
+  //   )
+  // );
+
   const country = useStore(
     useCallback(
-      (state) => state.countries.find((country) => country.name === name),
+      (state) =>
+        state.countries.find((country) =>
+          country.name.match(RegExp(`^${name}`, "i"))
+        ),
       [name]
     )
   );
@@ -120,7 +130,7 @@ export function Detail() {
                       <li key={name}>
                         <Tag
                           className="md:min-w-[8rem]"
-                          href={`/detail/${name}`}
+                          href={`/detail/${encodeURI(name)}`}
                         >
                           {name}
                         </Tag>

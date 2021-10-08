@@ -136,6 +136,7 @@ export function Select({ classes, placeholder, options }: SelectProps) {
     <>
       <select
         name="filter"
+        aria-label="Filter"
         className="sr-only"
         ref={(ref) => {
           if (!ref) return;
