@@ -52,9 +52,7 @@ function getCurrencies(data: any): string[] {
   return result;
 }
 
-function get(name?: string) {
-  const url = name ? `name/${name}` : "all";
-
+function get(url: string) {
   return fetch(API(url))
     .then(toJSON)
     .then(
@@ -69,12 +67,14 @@ function get(name?: string) {
         topLevelDomain: item.tld,
         currencies: getCurrencies(item.currencies),
         languages: Object.values(item.languages),
-        borderCountries: [],
       }))
     );
 }
 
 export const Country = {
-  getAll: memoizeWith(always(""), () => get()),
-  getByName: memoizeWith(identity, (name: string) => get(name)),
+  getAll: memoizeWith(always(""), () => get("all")),
+  getByName: memoizeWith(identity, (name: string) => get(`name/${name}`)),
+  getBySubRegion: memoizeWith(identity, (subregion: string) =>
+    get(`subregion/${subregion}`)
+  ),
 };

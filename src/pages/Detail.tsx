@@ -3,7 +3,7 @@ import { Format } from "@/utils";
 import { join } from "ramda";
 import { useParams } from "react-router";
 import useStore from "@/data";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import clsx from "clsx";
 
 const format = join(", ");
@@ -12,15 +12,42 @@ export function Detail() {
   const { country: name } = useParams();
 
   const getCountryByName = useStore((state) => state.getCountryByName);
+  const getCountryBySubRegion = useStore(
+    (state) => state.getCountryBySubRegion
+  );
 
-  const country = useStore((state) =>
-    state.countries.find((country) => country.name === name)
+  const country = useStore(
+    useCallback(
+      (state) => state.countries.find((country) => country.name === name),
+      [name]
+    )
+  );
+
+  const borderCountries = useStore(
+    useCallback(
+      (state) =>
+        !country
+          ? []
+          : state.countries
+              .filter(
+                ({ name, subRegion }) =>
+                  subRegion === country.subRegion && name !== country.name
+              )
+              .map(({ name }) => name),
+      [country]
+    )
   );
 
   useEffect(() => {
     if (!name || country) return;
 
     getCountryByName(name);
+  }, [country, name]);
+
+  useEffect(() => {
+    if (!name || !country) return;
+
+    getCountryBySubRegion(country.subRegion);
   }, [country, name]);
 
   return (
@@ -89,9 +116,14 @@ export function Detail() {
                   <h3>Border Countries: </h3>
 
                   <ul className="grid grid-cols-3 gap-2 font-light text-xs">
-                    {["France", "Germany", "Netherlands"].map((name) => (
+                    {borderCountries.map((name) => (
                       <li key={name}>
-                        <Tag className="md:min-w-[8rem]">{name}</Tag>
+                        <Tag
+                          className="md:min-w-[8rem]"
+                          href={`/detail/${name}`}
+                        >
+                          {name}
+                        </Tag>
                       </li>
                     ))}
                   </ul>

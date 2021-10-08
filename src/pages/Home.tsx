@@ -10,13 +10,17 @@ export function Home() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
 
-  const countries = useStore((state) =>
-    state.countries
-      .filter(({ name }) => name.match(RegExp(`^${search}`, "i")))
-      .filter(({ region }) => region.match(RegExp(`^${filter}`, "i")))
+  const countries = useStore(
+    useCallback(
+      (state) =>
+        state.countries
+          .filter(({ name }) => name.match(RegExp(`^${search}`, "i")))
+          .filter(({ region }) => region.match(RegExp(`^${filter}`, "i"))),
+      [search, filter]
+    )
   );
   const getAllCountries = useStore((state) => state.getAllCountries);
-  useEffect(() => void getAllCountries(), [getAllCountries]);
+  useEffect(() => void getAllCountries(), []);
 
   const onChange = useCallback(
     (event: ChangeEvent<HTMLFormElement>) => {

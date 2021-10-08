@@ -14,6 +14,4 @@ export interface Country {
   currencies: string[];
 
   languages: string[];
-
-  borderCountries: string[];
 }
