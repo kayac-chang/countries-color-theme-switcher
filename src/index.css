@@ -4,7 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+body {
   font-family: "Nunito Sans", sans-serif;
   @apply bg-gray-light;
+  @apply dark:text-white dark:bg-blue-darker;
+}
+
+input {
+  @apply bg-transparent;
 }

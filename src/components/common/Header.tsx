@@ -1,9 +1,16 @@
 import { Icon } from ".";
 import clsx from "clsx";
+import { useCallback } from "react";
 
 function ThemeToggle() {
+  const toggle = useCallback(() => {
+    const element = document.documentElement;
+
+    element.classList.toggle("dark");
+  }, []);
+
   return (
-    <button className="flex items-center gap-2 p-2">
+    <button className="flex items-center gap-2 p-2" onClick={toggle}>
       <span className="w-4 md:w-6">
         <Icon.Moon />
       </span>
@@ -15,7 +22,7 @@ function ThemeToggle() {
 
 export function Header() {
   return (
-    <header className="px-4 py-6 shadow-md">
+    <header className="px-4 py-6 shadow-md dark:bg-blue-dark">
       <div
         className={clsx(
           "container mx-auto",

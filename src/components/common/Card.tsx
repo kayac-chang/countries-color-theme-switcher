@@ -11,7 +11,7 @@ export function Card({ className, children }: CardProps) {
   return cloneElement(children, {
     ...children.props,
     className: clsx(
-      "shadow-md rounded overflow-hidden bg-white",
+      "shadow-md rounded overflow-hidden bg-white dark:bg-blue-dark",
       className,
       children.props.className
     ),
