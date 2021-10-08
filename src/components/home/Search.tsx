@@ -6,9 +6,7 @@ type SearchProps = {
 };
 export function Search({ className }: SearchProps) {
   return (
-    <label
-      className={clsx("flex items-center py-2 px-4 text-gray-dark", className)}
-    >
+    <label className={clsx("flex items-center text-gray-dark", className)}>
       <span className="w-6 mx-6">
         <Icon.Search />
       </span>

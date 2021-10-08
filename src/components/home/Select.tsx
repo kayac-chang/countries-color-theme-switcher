@@ -18,16 +18,12 @@ function FakeLabel({ className, label, value, onClick }: FakeLabelProps) {
   return (
     <button
       type="button"
-      className={clsx(
-        "flex justify-between items-center",
-        "px-6 py-3",
-        className
-      )}
+      className={clsx("flex justify-between items-center flex-1", className)}
       onClick={onClick}
     >
-      <span>{value || label}</span>
+      <span className="pl-4">{value || label}</span>
 
-      <span className="w-3">
+      <span className="w-4 m-4">
         <Icon.ChevronDown />
       </span>
     </button>
@@ -35,16 +31,18 @@ function FakeLabel({ className, label, value, onClick }: FakeLabelProps) {
 }
 
 type FakeOptionProps = {
+  className?: string;
   label?: string;
   onClick: () => void;
 };
-function FakeOption({ label, onClick }: FakeOptionProps) {
+function FakeOption({ className, label, onClick }: FakeOptionProps) {
   return (
     <button
       type="button"
       className={clsx(
-        "px-6 py-3 flex w-full",
-        "hover:bg-gray-dark hover:text-white"
+        "flex w-full p-4",
+        "hover:bg-gray-dark hover:text-white",
+        className
       )}
       onClick={onClick}
     >
@@ -54,19 +52,31 @@ function FakeOption({ label, onClick }: FakeOptionProps) {
 }
 
 type FakeSelectProps = {
+  classes?: {
+    wrapper?: string;
+    label?: string;
+    option?: string;
+  };
   label?: string;
   value: string;
   options: Option[];
   onSelect: (option: Option) => void;
 };
-function FakeSelect({ label, value, options, onSelect }: FakeSelectProps) {
+function FakeSelect({
+  classes,
+  label,
+  value,
+  options,
+  onSelect,
+}: FakeSelectProps) {
   const [isExpand, setExpand] = useState(false);
 
   return (
     <ClickAway onClickAway={() => setExpand(false)}>
-      <div className="w-1/2 text-xs flex flex-col gap-2 relative">
+      <div className={clsx("inline-flex flex-col relative", classes?.wrapper)}>
         <Card>
           <FakeLabel
+            className={classes?.label}
             label={label}
             value={value}
             onClick={() => setExpand(not)}
@@ -84,8 +94,12 @@ function FakeSelect({ label, value, options, onSelect }: FakeSelectProps) {
               {options.map(({ label, value }) => (
                 <li key={value}>
                   <FakeOption
+                    className={classes?.option}
                     label={label}
-                    onClick={() => onSelect({ label, value })}
+                    onClick={() => {
+                      onSelect({ label, value });
+                      setExpand(false);
+                    }}
                   />
                 </li>
               ))}
@@ -98,10 +112,15 @@ function FakeSelect({ label, value, options, onSelect }: FakeSelectProps) {
 }
 
 type SelectProps = {
+  classes?: {
+    wrapper?: string;
+    label?: string;
+    option?: string;
+  };
   placeholder?: string;
   options: Option[];
 };
-export function Select({ placeholder, options }: SelectProps) {
+export function Select({ classes, placeholder, options }: SelectProps) {
   const [current, setCurrent] = useState(placeholder ? -1 : 0);
 
   const onSelect = useCallback(
@@ -136,6 +155,7 @@ export function Select({ placeholder, options }: SelectProps) {
       </select>
 
       <FakeSelect
+        classes={classes}
         label={placeholder}
         value={options[current]?.value}
         options={options}

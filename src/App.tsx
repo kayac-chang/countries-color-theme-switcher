@@ -5,10 +5,10 @@ import { Home, Detail } from "@/pages";
 function App() {
   return (
     <BrowserRouter>
-      <main>
+      <main className="h-screen flex flex-col">
         <Header />
 
-        <div className="p-4">
+        <div className="p-4 container mx-auto flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="detail">
