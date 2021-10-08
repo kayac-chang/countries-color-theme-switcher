@@ -4,10 +4,10 @@ import { combine } from "zustand/middleware";
 
 export default combine({ countries: [] as Country[] }, (set) => ({
   getAllCountries: () => {
-    API.Country.get().then((countries) => set({ countries }));
+    API.Country.getAll().then((countries) => set({ countries }));
   },
 
   getCountryByName: (name: string) => {
-    API.Country.get(name).then((countries) => set({ countries }));
+    API.Country.getByName(name).then((countries) => set({ countries }));
   },
 }));

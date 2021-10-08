@@ -1,7 +1,7 @@
 import { toJSON, URL } from "./base";
 import { Country as TCountry } from "@/model";
 import { isObject, has, isString } from "@/utils";
-import { map } from "ramda";
+import { always, identity, map, memoizeWith } from "ramda";
 
 const API = (endpoint: string) =>
   URL(`https://restcountries.com/v3.1/${endpoint}`, {
@@ -52,7 +52,7 @@ function getCurrencies(data: any): string[] {
   return result;
 }
 
-function get(name?: string): Promise<TCountry[]> {
+function get(name?: string) {
   const url = name ? `name/${name}` : "all";
 
   return fetch(API(url))
@@ -75,5 +75,6 @@ function get(name?: string): Promise<TCountry[]> {
 }
 
 export const Country = {
-  get,
+  getAll: memoizeWith(always(""), () => get()),
+  getByName: memoizeWith(identity, (name: string) => get(name)),
 };

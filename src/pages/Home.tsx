@@ -11,8 +11,8 @@ export function Home() {
 
   const countries = useStore((state) =>
     state.countries
-      .filter((country) => country.name.match(RegExp(`^${search}`, "i")))
-      .filter((country) => country.region.match(RegExp(filter, "i")))
+      .filter(({ name }) => name.match(RegExp(`^${search}`, "i")))
+      .filter(({ region }) => region.match(RegExp(filter, "i")))
   );
   const getAllCountries = useStore((state) => state.getAllCountries);
   useEffect(() => void getAllCountries(), [getAllCountries]);
@@ -46,7 +46,7 @@ export function Home() {
 
         <VirtualList
           classes={{
-            wrapper: "max-h-[70vh] mt-4 p-10",
+            wrapper: "max-h-[68vh] px-10 mt-6",
             list: "flex flex-col",
           }}
           list={countries}
